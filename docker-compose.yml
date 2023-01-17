@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:13.1
+    container_name: contreaul-db
+    restart: always
+    environment:
+      - POSTGRES_USER=contreaul
+      - POSTGRES_PASSWORD=contreaul
+      - APP_DB_USER=contreaul
+      - APP_DB_PASS=contreaul
+      - APP_DB_NAME=contreaul-db
+    volumes:
+      - postgres-db:/docker-entrypoint-initdb.d/
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - 5432:5432
+
+volumes:
+  postgres-db:
+    driver: local
