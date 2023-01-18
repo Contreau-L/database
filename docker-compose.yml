@@ -16,6 +16,19 @@ services:
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - 5432:5432
+  cloudbeaver:
+      image: dbeaver/cloudbeaver:21.3.3
+      container_name: cloudbeaver
+      restart: always
+      ports:
+       - APP_HTTP_PORT=8978
+      volumes: 
+       - cloudbeaver:/opt/cloudbeaver/workspace            
+
+networks:
+  default:
+    name: contreaul-net
+    external: true
 
 volumes:
   postgres-db:
