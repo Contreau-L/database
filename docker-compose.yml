@@ -5,6 +5,8 @@ services:
     image: postgres:13.1
     container_name: contreaul-db
     restart: always
+    networks:
+      - contreaul-net
     environment:
       - POSTGRES_USER=contreaul
       - POSTGRES_PASSWORD=contreaul
@@ -20,16 +22,18 @@ services:
       image: dbeaver/cloudbeaver:21.3.3
       container_name: cloudbeaver
       restart: always
+      networks:
+       - contreaul-net
       ports:
-       - APP_HTTP_PORT=8978
-      volumes: 
-       - cloudbeaver:/opt/cloudbeaver/workspace            
+       - 8978:8978
+      volumes:
+       - cloudbeaver:/opt/cloudbeaver/workspace
 
 networks:
-  default:
-    name: contreaul-net
-    external: true
+  contreaul-net:
 
 volumes:
   postgres-db:
+    driver: local
+  cloudbeaver:
     driver: local
