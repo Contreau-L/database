@@ -41,14 +41,14 @@ CREATE TABLE "GardenLine" (
   "humidity_threshold" float NOT NULL
 );
 
-ALTER TABLE "UserDevice" ADD FOREIGN KEY ("fk_device") REFERENCES "Device" ("id");
+ALTER TABLE "UserDevice" ADD FOREIGN KEY ("fk_device") REFERENCES "Device" ("id_mac");
 
 ALTER TABLE "UserDevice" ADD FOREIGN KEY ("fk_user") REFERENCES "User" ("id");
 
-ALTER TABLE "Logs" ADD FOREIGN KEY ("fk_device") REFERENCES "Device" ("id");
+ALTER TABLE "Logs" ADD FOREIGN KEY ("fk_device") REFERENCES "Device" ("id_mac");
 
 ALTER TABLE "HumidityLevel" ADD FOREIGN KEY ("fk_logs") REFERENCES "Logs" ("id");
 
-ALTER TABLE "GardenLine" ADD FOREIGN KEY ("fk_device") REFERENCES "Device" ("id");
+ALTER TABLE "GardenLine" ADD FOREIGN KEY ("fk_device") REFERENCES "Device" ("id_mac");
 
 ALTER TABLE "HumidityLevel" ADD FOREIGN KEY ("fk_garden_line") REFERENCES "GardenLine" ("id");
