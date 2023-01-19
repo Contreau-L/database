@@ -1,43 +1,44 @@
 CREATE TABLE "User" (
-"id" uuid PRIMARY KEY,
-"name" varchar(255) NOT NULL,
-"password" varchar(255) NOT NULL
+  "id" uuid PRIMARY KEY,
+  "name" varchar(255) NOT NULL,
+  "password" varchar(255) NOT NULL
 );
 
 CREATE TABLE "UserDevice" (
-"id" uuid PRIMARY KEY,
-"fk_user" uuid NOT NULL, 
-"fk_device" uuid NOT NULL
+  "id" uuid PRIMARY KEY,
+  "fk_user" uuid NOT NULL, 
+  "fk_device" bigint NOT NULL
 );
 
 CREATE TABLE "Device" (
-"id" uuid PRIMARY KEY,
-"name" varchar(255) NOT NULL,
-"latitude" float NOT NULL,
-"longitude" float NOT NULL
+  "id_mac" bigint PRIMARY KEY,
+  "name" varchar(255) NOT NULL,
+  "latitude" float NOT NULL,
+  "longitude" float NOT NULL
 );
 
 CREATE TABLE "Logs" (
-"id" uuid PRIMARY KEY,
-"fk_device" uuid NOT NULL,
-"water_temperature" float NOT NULL,
-"water_level" float NOT NULL,
-"published_date" date NOT NULL,
-"ph" float NOT NULL
+  "id" uuid PRIMARY KEY,
+  "fk_device" bigint NOT NULL,
+  "water_temperature" float NOT NULL,
+  "water_level" float NOT NULL,
+  "occurred_at" timestamp NOT NULL,
+  "added_at" timestamp NOT NULL,
+  "ph" float NOT NULL
 );
 
 CREATE TABLE "HumidityLevel" (
-"id" uuid PRIMARY KEY,
-"fk_logs" uuid NOT NULL,
-"fk_garden_line" uuid NOT NULL,
-"humidity_level" float NOT NULL
+  "id" uuid PRIMARY KEY,
+  "fk_logs" uuid NOT NULL,
+  "fk_garden_line" uuid NOT NULL,
+  "humidity_level" float NOT NULL
 );
 
 CREATE TABLE "GardenLine" (
-"id" uuid PRIMARY KEY,
-"fk_device" uuid NOT NULL,
-"vegetable_type" varchar(255) NOT NULL,
-"humidity_threshold" float NOT NULL
+  "id" uuid PRIMARY KEY,
+  "fk_device" bigint NOT NULL,
+  "vegetable_type" varchar(255) NOT NULL,
+  "humidity_threshold" float NOT NULL
 );
 
 ALTER TABLE "UserDevice" ADD FOREIGN KEY ("fk_device") REFERENCES "Device" ("id");
