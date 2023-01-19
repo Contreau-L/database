@@ -1,12 +1,15 @@
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+
 CREATE TABLE "User" (
-  "id" uuid PRIMARY KEY,
+  id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
   "user_name" varchar(255) NOT NULL,
   "email" varchar(255) NOT NULL,
   "password" varchar(255) NOT NULL
 );
 
 CREATE TABLE "UserDevice" (
-  "id" uuid PRIMARY KEY,
+   id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
   "fk_user" uuid NOT NULL, 
   "fk_device" bigint NOT NULL
 );
@@ -19,7 +22,7 @@ CREATE TABLE "Device" (
 );
 
 CREATE TABLE "Logs" (
-  "id" uuid PRIMARY KEY,
+  id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
   "fk_device" bigint NOT NULL,
   "water_temperature" float NOT NULL,
   "water_level" float NOT NULL,
@@ -29,14 +32,14 @@ CREATE TABLE "Logs" (
 );
 
 CREATE TABLE "HumidityLevel" (
-  "id" uuid PRIMARY KEY,
+  id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
   "fk_logs" uuid NOT NULL,
   "fk_garden_line" uuid NOT NULL,
   "humidity_level" float NOT NULL
 );
 
 CREATE TABLE "GardenLine" (
-  "id" uuid PRIMARY KEY,
+  id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
   "fk_device" bigint NOT NULL,
   "vegetable_type" varchar(255) NOT NULL,
   "humidity_threshold" float NOT NULL
