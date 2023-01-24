@@ -3,8 +3,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 CREATE TABLE "User" (
   id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-  "user_name" varchar(255) NOT NULL,
-  "email" varchar(255) NOT NULL,
+  "name" varchar(255) NOT NULL,
   "password" varchar(255) NOT NULL
 );
 
@@ -42,8 +41,16 @@ CREATE TABLE "GardenLine" (
   id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
   "fk_device" bigint NOT NULL,
   "vegetable_type" varchar(255) NOT NULL,
-  "humidity_threshold" float NOT NULL
+  "humidity_threshold" float NOT NULL,
+  "line_index" int NOT NULL
 );
+
+CREATE TABLE "ConnectionHistory" (
+    id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+    "fk_device" bigint NOT NULL,
+    "occurred_at" timestamp NOT NULL
+);
+
 
 ALTER TABLE "UserDevice" ADD FOREIGN KEY ("fk_device") REFERENCES "Device" ("id_mac");
 
@@ -56,3 +63,5 @@ ALTER TABLE "HumidityLevel" ADD FOREIGN KEY ("fk_logs") REFERENCES "Logs" ("id")
 ALTER TABLE "GardenLine" ADD FOREIGN KEY ("fk_device") REFERENCES "Device" ("id_mac");
 
 ALTER TABLE "HumidityLevel" ADD FOREIGN KEY ("fk_garden_line") REFERENCES "GardenLine" ("id");
+
+ALTER TABLE "ConnectionHistory" ADD FOREIGN KEY ("fk_device") REFERENCES "Device" ("id_mac");
