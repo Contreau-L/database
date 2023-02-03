@@ -1,10 +1,11 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 
-CREATE TABLE "User" (
+CREATE TABLE "Users" (
   id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-  "name" varchar(255) NOT NULL,
-  "password" varchar(255) NOT NULL
+  "user_name" varchar(255) NOT NULL,
+  "password" varchar(255) NOT NULL,
+  "email" varchar(255) NOT NULL
 );
 
 CREATE TABLE "UserDevice" (
@@ -54,7 +55,7 @@ CREATE TABLE "ConnectionHistory" (
 
 ALTER TABLE "UserDevice" ADD FOREIGN KEY ("fk_device") REFERENCES "Device" ("id_mac");
 
-ALTER TABLE "UserDevice" ADD FOREIGN KEY ("fk_user") REFERENCES "User" ("id");
+ALTER TABLE "UserDevice" ADD FOREIGN KEY ("fk_user") REFERENCES "Users" ("id");
 
 ALTER TABLE "Logs" ADD FOREIGN KEY ("fk_device") REFERENCES "Device" ("id_mac");
 

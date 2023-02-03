@@ -7,3 +7,4 @@ setup-docker :
 reset-db:
 	sudo docker compose stop postgres
 	sudo docker compose rm -v postgres
+	sudo docker volume rm database_postgres-db
