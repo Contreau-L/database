@@ -1,27 +1,26 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
-
-CREATE TABLE "Users" (
+CREATE TABLE "users" (
   id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
   "name" varchar(255) NOT NULL,
   "password" varchar(255) NOT NULL,
   "email" varchar(255) NOT NULL
 );
 
-CREATE TABLE "UserDevice" (
-   id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+CREATE TABLE "user_devices" (
+  id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
   "user" uuid NOT NULL, 
   "device" bigint NOT NULL
 );
 
-CREATE TABLE "Device" (
+CREATE TABLE "devices" (
   "id_mac" bigint PRIMARY KEY,
   "name" varchar(255) NOT NULL,
   "latitude" float NOT NULL,
   "longitude" float NOT NULL
 );
 
-CREATE TABLE "Logs" (
+CREATE TABLE "logs" (
   id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
   "device" bigint NOT NULL,
   "water_temperature" float NOT NULL,
@@ -31,14 +30,14 @@ CREATE TABLE "Logs" (
   "ph" float NOT NULL
 );
 
-CREATE TABLE "HumidityLevel" (
+CREATE TABLE "humidity_levels" (
   id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
   "log" uuid NOT NULL,
   "garden_line" uuid NOT NULL,
   "humidity_level" float NOT NULL
 );
 
-CREATE TABLE "GardenLine" (
+CREATE TABLE "garden_lines" (
   id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
   "device" bigint NOT NULL,
   "vegetable_type" varchar(255) NOT NULL,
@@ -46,13 +45,13 @@ CREATE TABLE "GardenLine" (
   "line_index" int NOT NULL
 );
 
-CREATE TABLE "ConnectionHistory" (
+CREATE TABLE "connection_history" (
     id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
     "device" bigint NOT NULL,
     "occurred_at" timestamp NOT NULL
 );
 
-CREATE TABLE "Action" (
+CREATE TABLE "actions" (
     id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
     "device" bigint NOT NULL,
     "type" varchar(255) NOT NULL,
@@ -63,18 +62,18 @@ CREATE TABLE "Action" (
 
 
 
-ALTER TABLE "UserDevice" ADD FOREIGN KEY ("device") REFERENCES "Device" ("id_mac");
+ALTER TABLE "user_devices" ADD FOREIGN KEY ("device") REFERENCES "devices" ("id_mac");
 
-ALTER TABLE "UserDevice" ADD FOREIGN KEY ("user") REFERENCES "Users" ("id");
+ALTER TABLE "user_devices" ADD FOREIGN KEY ("user") REFERENCES "users" ("id");
 
-ALTER TABLE "Logs" ADD FOREIGN KEY ("device") REFERENCES "Device" ("id_mac");
+ALTER TABLE "logs" ADD FOREIGN KEY ("device") REFERENCES "devices" ("id_mac");
 
-ALTER TABLE "HumidityLevel" ADD FOREIGN KEY ("log") REFERENCES "Logs" ("id");
+ALTER TABLE "humidity_levels" ADD FOREIGN KEY ("log") REFERENCES "logs" ("id");
 
-ALTER TABLE "GardenLine" ADD FOREIGN KEY ("device") REFERENCES "Device" ("id_mac");
+ALTER TABLE "garden_lines" ADD FOREIGN KEY ("device") REFERENCES "devices" ("id_mac");
 
-ALTER TABLE "HumidityLevel" ADD FOREIGN KEY ("garden_line") REFERENCES "GardenLine" ("id");
+ALTER TABLE "humidity_levels" ADD FOREIGN KEY ("garden_line") REFERENCES "garden_lines" ("id");
 
-ALTER TABLE "ConnectionHistory" ADD FOREIGN KEY ("device") REFERENCES "Device" ("id_mac");
+ALTER TABLE "connection_history" ADD FOREIGN KEY ("device") REFERENCES "devices" ("id_mac");
 
-ALTER TABLE "Action" ADD FOREIGN KEY ("device") REFERENCES "Device" ("id_mac");
+ALTER TABLE "actions" ADD FOREIGN KEY ("device") REFERENCES "devices" ("id_mac");
