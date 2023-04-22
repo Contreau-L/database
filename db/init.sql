@@ -54,6 +54,7 @@ CREATE TABLE "connection_history" (
 CREATE TABLE "actions" (
     id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
     "device" bigint NOT NULL,
+    "garden_line" uuid NOT NULL,
     "type" varchar(255) NOT NULL,
     "status" varchar(255) NOT NULL,
     "requested_at" timestamp NOT NULL,
@@ -77,3 +78,5 @@ ALTER TABLE "humidity_levels" ADD FOREIGN KEY ("garden_line") REFERENCES "garden
 ALTER TABLE "connection_history" ADD FOREIGN KEY ("device") REFERENCES "devices" ("id_mac");
 
 ALTER TABLE "actions" ADD FOREIGN KEY ("device") REFERENCES "devices" ("id_mac");
+
+ALTER TABLE "actions" ADD FOREIGN KEY ("garden_line") REFERENCES "garden_lines" ("id");
