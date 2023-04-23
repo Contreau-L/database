@@ -58,7 +58,7 @@ CREATE TABLE "actions" (
     "type" varchar(255) NOT NULL,
     "status" varchar(255) NOT NULL,
     "requested_at" timestamp NOT NULL,
-    "occurred_at" timestamp NOT NULL,
+    "occurred_at" timestamp
 );
 
 
