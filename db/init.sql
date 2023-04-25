@@ -16,8 +16,7 @@ CREATE TABLE "user_devices" (
 CREATE TABLE "devices" (
   "id_mac" bigint PRIMARY KEY,
   "name" varchar(255) NOT NULL,
-  "latitude" float NOT NULL,
-  "longitude" float NOT NULL
+  "insee" int
 );
 
 CREATE TABLE "logs" (
@@ -42,7 +41,8 @@ CREATE TABLE "garden_lines" (
   "device" bigint NOT NULL,
   "vegetable_type" varchar(255) NOT NULL,
   "humidity_threshold" float NOT NULL,
-  "line_index" int NOT NULL
+  "line_index" int NOT NULL,
+  "status" boolean NOT NULL
 );
 
 CREATE TABLE "connection_history" (
